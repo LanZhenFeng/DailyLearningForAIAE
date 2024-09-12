@@ -7,21 +7,25 @@
 # @lc code=start
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
-        offset = 0
+        '''
+        方法一：
+        '''
+        offset = 0   
         lens = len(nums)
         i = 0
+        # range得到的可迭代对象只能往前，无法执行i=i-1
         while i < lens:
-            # print(nums)
             if i+offset >= lens:
-                # print(f"break:{i}")
                 break
             if val == nums[i]:
-                # print(f"pop:{i}")
                 nums.pop(i)
                 i = i-1
                 offset += 1
             i = i+1
         return len(nums)
+        # '''
+        # 方法二：
+        # '''
         # k = 0
         # f = 0
         # offset = 0
