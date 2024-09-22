@@ -19,10 +19,23 @@ class Solution:
         Your runtime beats 96.33 % of python3 submissions
         Your memory usage beats 57.5 % of python3 submissions (16.5 MB)
         '''
-        set1 = set(nums1)
-        set2 = set(nums2)
-        intersection = set1.intersection(set2)
-        return list(intersection)
-        
+        # set1 = set(nums1)
+        # set2 = set(nums2)
+        # intersection = set1.intersection(set2)
+        # return list(intersection)
+
+        # 方法一v2：循环遍历找交集
+        '''
+        57/57 cases passed (34 ms)
+        Your runtime beats 87.37 % of python3 submissions
+        Your memory usage beats 70.93 % of python3 submissions (16.5 MB)
+        '''
+        set1 = list(set(nums1))
+        set2 = list(set(nums2))
+        intersection = []
+        for e1 in set1:
+            if e1 in set2:
+                intersection.append(e1)
+        return intersection
 # @lc code=end
 
