@@ -21,9 +21,17 @@ class Solution:
         #     if i*size == len(s):
         #         return True
         # return False
-        ns = ''.join([s, s])[1:-1]
-        res = ns.find(s)
-        return False if res == -1 else True
+        
+        # 移动匹配 find底层由C实现，要比用Python实现KMP算法快的多
+        '''
+        129/129 cases passed (34 ms)
+        Your runtime beats 95.75 % of python3 submissions
+        Your memory usage beats 33.52 % of python3 submissions (16.6 MB)
+        '''
+        # ns = ''.join([s, s])[1:-1]
+        # res = ns.find(s)
+        # return False if res == -1 else True
+
         # _next = [0] * len(s)
         # for i in range(1, len(s)):
         #     lens = _next[i-1]
@@ -41,7 +49,27 @@ class Solution:
         #         if j == len(s):
         #             return True
         # return False
- 
+
+        # KMP + 推导
+        '''
+        129/129 cases passed (77 ms)
+        Your runtime beats 49.52 % of python3 submissions
+        Your memory usage beats 5.91 % of python3 submissions (16.9 MB)
+        '''
+        if len(s) == 0:
+            return False
+        _next = [0] * len(s)
+        for i in range(1, len(s)):
+            lens = _next[i-1]
+            while lens and s[i] != s[lens]:
+                lens = _next[lens-1]
+            if s[i] == s[lens]:
+                _next[i] = lens + 1
+
+        if _next[-1] != 0 and len(s) % (len(s) - _next[-1]) == 0:
+            return True
+
+        return False
 
 # @lc code=end
 
