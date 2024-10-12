@@ -73,7 +73,6 @@ class Solution:
             if len(ans) == depth:
                 ans.append([])
             ans[depth].append(root.val)
-            sub_ans = []
             if root.left: order(root.left, ans, depth + 1)
             if root.right: order(root.right, ans, depth + 1)
 
