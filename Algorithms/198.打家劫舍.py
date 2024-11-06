@@ -32,15 +32,32 @@ class Solution:
         Your runtime beats 100 % of python3 submissions
         Your memory usage beats 6.12 % of python3 submissions (16.6 MB)
         '''
-        if len(nums) == 0: return 0
+        # if len(nums) == 1: return nums[0]
+        # dp = [0] * len(nums)
+        # dp[0] = nums[0]
+        # dp[1] = max(nums[0], nums[1])
+        # for i in range(2, len(nums)):
+        #     dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])
+        # # print(dp)
+        # return dp[-1]
+
+        # DP 2维
+        # 时间复杂度: O(n)
+        # 空间复杂度: O(n)
+        '''
+        70/70 cases passed (0 ms)
+        Your runtime beats 100 % of python3 submissions
+        Your memory usage beats 79.93 % of python3 submissions (16.3 MB)
+        '''
         if len(nums) == 1: return nums[0]
-        dp = [0] * len(nums)
-        dp[0] = nums[0]
-        dp[1] = max(nums[0], nums[1])
-        for i in range(2, len(nums)):
-            dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])
+        dp = [[0, 0] for _ in range(len(nums))]
+        dp[0][1] = nums[0]
+
+        for i in range(1, len(nums)):
+            dp[i][0] = max(dp[i - 1])
+            dp[i][1] = dp[i - 1][0] + nums[i]
         # print(dp)
-        return dp[-1]
+        return max(dp[len(nums) - 1])
 
 
 # @lc code=end
