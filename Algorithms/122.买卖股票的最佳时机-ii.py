@@ -36,15 +36,47 @@ class Solution:
         Your runtime beats 100 % of python3 submissions
         Your memory usage beats 31.18 % of python3 submissions (18 MB)
         '''
-        profit = 0
-        pre_prices = prices[:-1]
-        suf_prices = prices[1:]
-        for i in range(len(pre_prices)):
-            if suf_prices[i] > pre_prices[i]:
-                profit += suf_prices[i] - pre_prices[i]
-        return profit
+        # profit = 0
+        # pre_prices = prices[:-1]
+        # suf_prices = prices[1:]
+        # for i in range(len(pre_prices)):
+        #     if suf_prices[i] > pre_prices[i]:
+        #         profit += suf_prices[i] - pre_prices[i]
+        # return profit
 
-        # TODO 动态规划
+        # TODO DONE 动态规划  O(n)空间
+        # 时间复杂度 O(n)
+        # 空间复杂度 O(n)
+        '''
+        200/200 cases passed (3 ms)
+        Your runtime beats 65.7 % of python3 submissions
+        Your memory usage beats 32.39 % of python3 submissions (17.7 MB)
+        '''
+        # dp = [[0] * 2] * len(prices)
+        # dp[0][0] = -prices[0]
+        # dp[0][1] = 0
+
+        # for i in range(1, len(prices)):
+        #     dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] - prices[i])
+        #     dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] + prices[i])
+        # return dp[-1][-1]
+
+        # 动态规划 O(1)空间
+        # 时间复杂度 O(n)
+        # 空间复杂度 O(1)
+        '''
+        200/200 cases passed (3 ms)
+        Your runtime beats 65.53 % of python3 submissions
+        Your memory usage beats 63.48 % of python3 submissions (17.5 MB)
+        '''
+        dp = [0] * 2
+        dp[0] = -prices[0]
+        dp[1] = 0
+
+        for i in range(1, len(prices)):
+            dp[0] = max(dp[0], dp[1] - prices[i])
+            dp[1] = max(dp[1], dp[0] + prices[i])
+        return dp[1]
 
 
 # @lc code=end
