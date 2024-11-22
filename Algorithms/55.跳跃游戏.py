@@ -56,4 +56,39 @@ class Solution:
         return False
 
 
+        # DP
+        # 时间复杂度 O(n)
+        # 空间复杂度 O(n)
+        dp = [False] *  len(nums)
+        dp[-1] = True
+        index = len(nums)-1
+        for i in range(len(nums)-2, -1, -1):
+            if index - i <= nums[i]:
+                index = i
+                dp[index] = True
+        return dp[0]
+
+        # 记录最远距离
+        # 时间复杂度 O(n)
+        # 空间复杂度 O(1)
+        # max_dist = 0
+        # i = 0
+        # while i <= max_dist:
+        #     max_dist = max(max_dist, i + nums[i])
+        #     if max_dist >= len(nums) - 1:
+        #         return True
+        #     i += 1
+        # return False
+
+        # 倒序遍历 可达性判断
+        # 时间复杂度 O(n)
+        # 空间复杂度 O(1)
+        step = 1
+        for i in range(len(nums)-2, -1, -1):
+            if nums[i] >= step:
+                step = 0
+            step += 1
+        
+        return step == 1
+
 # @lc code=end
