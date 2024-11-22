@@ -27,7 +27,58 @@ class Solution:
                 if cur_cover >= len(nums) - 1: break
         return step
 
-        # TODO 动态规划
+        # DP
+        # 时间复杂度 O(n^2)
+        # 空间复杂度 O(n)
+        # dp = [float("inf")] * len(nums)
+        # dp[0] = 0
+        # for i in range(1, len(nums)):
+        #     for j in range(i):
+        #         if j+nums[j] >= i:
+        #             dp[i] = min(dp[i], dp[j]+1)
+        # return dp[-1]
+
+        # DP+贪心
+        # 时间复杂度 O(n)
+        # 空间复杂度 O(n)
+        dp = [float("inf")] * len(nums)
+        dp[0] = 0
+        j = 0
+        for i in range(1, len(nums)):
+            while j+nums[j] < i:
+                j += 1
+            dp[i] = dp[j] + 1
+        return dp[-1]
+
+
+        # 贪心
+        # 时间复杂度: O(n) 
+        # 空间复杂度: O(1)
+        # if len(nums) == 1: return 0
+        # cur_dist = 0
+        # next_dist = 0
+        # count = 0
+        # i = 0
+        # while i < len(nums)-1:
+        #     next_dist = max(next_dist, i + nums[i])
+        #     if i == cur_dist:
+        #         count += 1
+        #         cur_dist = next_dist
+        #     i += 1
+        # return count
+
+        # 反向查找出发位置
+        # 时间复杂度: O(n^2) 
+        # 空间复杂度: O(1)
+        pos = len(nums) - 1
+        steps = 0
+        while pos > 0:
+            for i in range(pos):
+                if i+nums[i] >= pos:
+                    pos = i
+                    steps += 1
+                    break
+        return steps
 
 
 # @lc code=end
