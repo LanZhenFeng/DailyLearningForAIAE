@@ -92,6 +92,60 @@ class Solution:
                     while i < j and nums[i] == nums[i - 1]: i += 1
                     while i < j and nums[j] == nums[j + 1]: j -= 1
         return res
+
+        # 哈希表
+        # 时间复杂度 O(n^2) ✅
+        # 空间复杂度 O(n)，额外的 set 开销 ✅ 
+        # ans = []
+        # nums.sort()
+        # for i in range(len(nums)):
+        #     if nums[i] > 0:
+        #         break
+        #     if i > 0 and nums[i] == nums[i-1]:
+        #         continue
+        #     d = set()
+        #     for j in range(i+1, len(nums)):
+        #         if j > i+2 and nums[j] == nums[j-1] and nums[j-1] == nums[j-2]: continue
+        #         c = 0 - nums[i] - nums[j]
+        #         if c in d:
+        #             ans.append([nums[i], nums[j], c])
+        #             d.discard(c)
+        #         else:
+        #             d.add(nums[j])
+        # return ans
+
+        # 双指针
+        # 时间复杂度 O(n^2) ✅
+        # 空间复杂度 O(1)   ✅ 
+        ans = []
+        nums.sort()
+        for i in range(len(nums)-2):
+            x = nums[i]
+            if x > 0:
+                break
+            if i > 0 and x == nums[i-1]:
+                continue
+            # if x + nums[i+1] + nums[i+2] > 0:
+            #     break
+            # if x + nums[-2] + nums[-1] < 0:
+            #     continue
+            left = i+1
+            right = len(nums)-1
+            while left < right:
+                s = x + nums[left] + nums[right]
+                if s == 0:
+                    ans.append([x, nums[left], nums[right]])
+                    while left < right and nums[left] == nums[left+1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right-1]:
+                        right -= 1
+                    left += 1
+                    right -= 1
+                elif s > 0:
+                    right -= 1
+                else:
+                    left += 1
+        return ans
                     
 # @lc code=end
 
